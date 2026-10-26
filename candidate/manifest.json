@@ -1,0 +1,5 @@
+{
+	"release_name": "Demo Software",
+	"version": "1.0.0",
+	"required_files": ["demo_software.bin"]
+}
