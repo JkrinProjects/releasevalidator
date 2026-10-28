@@ -57,12 +57,12 @@ if __name__ == "__main__":
     else:
         target = "candidate"
 
-errors = validate_build(target)
-if errors:
-    print("VALIDATION FAILURE")
+    errors = validate_build(target)
+    if errors:
+        print("VALIDATION FAILURE")
 
-    for error in errors:
-        print(f"ERROR FOUND: {error}")
-    sys.exit(1)
+        for error in errors:
+            print(f"ERROR FOUND: {error}")
+        sys.exit(1)
     
-print("VALIDATION PASSED")
+    print("VALIDATION PASSED")
