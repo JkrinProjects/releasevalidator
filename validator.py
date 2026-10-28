@@ -37,7 +37,7 @@ def validate_build(release_directory):
             continue
 
         if (Path(filename).name != filename):
-            errors.append(f"Filename can't have a directory: {filename}")
+            errors.append(f"Filename cant have a directory: {filename}")
             continue
 
         if (filename == ".."):
