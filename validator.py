@@ -36,7 +36,7 @@ def validate_build(release_directory):
             errors.append("Filename can't be empty")
             continue
 
-        if False: #temporary intentional bug
+        if (Path(filename).name != filename):
             errors.append(f"Filename can't have a directory: {filename}")
             continue
 
