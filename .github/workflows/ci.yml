@@ -2,7 +2,14 @@
 
 name: Release Validator CI/CD
 
-on: [push]
+on: 
+  push:
+    branches:
+      -main 
+  pull_request:
+    branches:
+      - test
+      - develop
 
 jobs:
   build:
