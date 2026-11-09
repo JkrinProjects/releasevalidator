@@ -1,6 +1,4 @@
 import json
-import re
-import sys
 from pathlib import Path
 
 def validate_build(release_directory):
@@ -17,16 +15,22 @@ def validate_build(release_directory):
         manifest_file = json.loads(manifest_path.read_text(encoding="utf-8"))
     
     except(json.JSONDecodeError, UnicodeDecodeError):
-        return ["Manifest is not proper or valid JSON"]
+        return ["Manifest is not proper JSON"]
 
-    #check for the full list of required files 
+
+    #json matches expected manifest structure(returns a JSON object)
+    if not isinstance(manifest_file, dict):
+        return ["Manifest must contain a JSON object"]
+
+    #parse for the list of required files 
     required_files = manifest_file.get("required_files")
 
     #check the requested files exist and are properly formatted
     if not isinstance(required_files, list):
-        errors.append("required files are not a list")
-        required_files = []
-
+        return["required files are not a list"]
+    if not required_files:
+        return["required files cannot be empty"]
+        
     for filename in required_files:
         if(not isinstance(filename, str)):
             errors.append("Filename must be a string")
@@ -49,20 +53,3 @@ def validate_build(release_directory):
             errors.append(f"missing a required file: {filename}")
 
     return errors
-
-
-if __name__ == "__main__":
-    if (len(sys.argv) > 1):
-        filename = sys.argv[1]
-    else:
-        target = "candidate"
-
-    errors = validate_build(target)
-    if errors:
-        print("VALIDATION FAILURE")
-
-        for error in errors:
-            print(f"ERROR FOUND: {error}")
-        sys.exit(1)
-    
-    print("VALIDATION PASSED")
